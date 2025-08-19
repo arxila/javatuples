@@ -17,7 +17,7 @@
  *
  * =========================================================================
  */
-package io.arxila.javatuples;
+package io.arxila.javatuples.old;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -45,20 +45,6 @@ public abstract class Tuple implements Iterable<Object>, Serializable, Comparabl
     
     
 
-    /**
-     * 
-     * @deprecated Will be removed in 1.4. The "size" parameter is of no use at
-     *             this level, so use the simpler Tuple(values) constructor instead.
-     */
-    @Deprecated
-    protected Tuple(@SuppressWarnings("unused") final int size, final Object... values) {
-        super();
-        this.valueArray = values;
-        this.valueList = Arrays.asList(values);
-    }
-
-
-    
     protected Tuple(final Object... values) {
         super();
         this.valueArray = values;
@@ -73,6 +59,7 @@ public abstract class Tuple implements Iterable<Object>, Serializable, Comparabl
      * 
      * @return the size of the tuple.
      */
+    // TODO: size()
     public abstract int getSize();
 
     
@@ -86,6 +73,7 @@ public abstract class Tuple implements Iterable<Object>, Serializable, Comparabl
      * @param pos the position of the value to be retrieved.
      * @return the value
      */
+    // TODO: get() or value()
     public final Object getValue(final int pos) {
         if (pos >= getSize()) {
             throw new IllegalArgumentException(

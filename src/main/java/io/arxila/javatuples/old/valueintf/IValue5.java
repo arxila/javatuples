@@ -17,18 +17,18 @@
  *
  * =========================================================================
  */
-package io.arxila.javatuples.valueintf;
+package io.arxila.javatuples.old.valueintf;
 
 /** 
  * <p>
- * Marker interface for tuples with a "4" value.
+ * Marker interface for tuples with a "5" value.
  * </p> 
  *
  * @since 1.1
  *
  */
-public interface IValue4<X> {
+public interface IValue5<X> {
 
-    public X getValue4();
+    public X getValue5();
     
 }

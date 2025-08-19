@@ -17,7 +17,7 @@
  *
  * =========================================================================
  */
-package io.arxila.javatuples;
+package io.arxila.javatuples.old;
 
 import java.util.Collection;
 import java.util.Iterator;

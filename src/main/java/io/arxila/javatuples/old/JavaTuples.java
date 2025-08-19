@@ -17,7 +17,7 @@
  *
  * =========================================================================
  */
-package io.arxila.javatuples;
+package io.arxila.javatuples.old;
 
 import java.io.InputStream;
 import java.util.Properties;
@@ -41,7 +41,7 @@ public final class JavaTuples {
     public static final String VERSION_TYPE;
 
     private static final String VERSION_TYPE_RELEASE = "RELEASE";
-    private static final String RESOURCE_NAME = "io/arxila/javatuples/javatuples.properties";
+    private static final String RESOURCE_NAME = "io/arxila/javatuples/old/javatuples.properties";
 
 
     static {
