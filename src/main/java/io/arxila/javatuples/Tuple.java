@@ -22,8 +22,11 @@ package io.arxila.javatuples;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * <p>
@@ -36,23 +39,24 @@ import java.util.List;
  * @since 2.0.0
  *
  */
-public interface Tuple extends Iterable<Object>, Serializable, Comparable<io.arxila.javatuples.Tuple> {
+public interface Tuple extends Iterable<Object>, Serializable, Comparable<Tuple> {
 
     int size();
+
+    Object value(int index);
+
     List<Object> values();
 
-    default Object value(int index) {
-        return values().get(index);
-    }
+    boolean contains(final Object value);
 
-    default boolean contains(final Object value) {
-        return values().contains(value);
-    }
 
     default boolean containsAll(final Collection<?> values) {
-        // We don't fear using List#containsAll() because tuples are never larger than 10.
-        // noinspection SlowListContainsAll
-        return values().containsAll(values);
+        for (final Object value : values) {
+            if (!contains(value)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     default boolean containsAll(final Tuple tuple) {
@@ -60,9 +64,8 @@ public interface Tuple extends Iterable<Object>, Serializable, Comparable<io.arx
     }
 
     default boolean containsAll(final Object... values) {
-        final List<Object> tupleValues = values();
-        for (Object value : values) {
-            if (!tupleValues.contains(value)) {
+        for (final Object value : values) {
+            if (!contains(value)) {
                 return false;
             }
         }
@@ -70,9 +73,8 @@ public interface Tuple extends Iterable<Object>, Serializable, Comparable<io.arx
     }
 
     default boolean containsAny(final Collection<?> values) {
-        final List<Object> tupleValues = values();
-        for (Object value : values) {
-            if (tupleValues.contains(value)) {
+        for (final Object value : values) {
+            if (contains(value)) {
                 return true;
             }
         }
@@ -84,42 +86,31 @@ public interface Tuple extends Iterable<Object>, Serializable, Comparable<io.arx
     }
 
     default boolean containsAny(final Object... values) {
-        final List<Object> tupleValues = values();
-        for (Object value : values) {
-            if (tupleValues.contains(value)) {
+        for (final Object value : values) {
+            if (contains(value)) {
                 return true;
             }
         }
         return false;
     }
 
+
     default int indexOf(final Object value) {
-        int i = 0;
-        for (final Object val : values()) {
-            if (val == null) {
-                if (value == null) {
-                    return i;
-                }
-            } else {
-                if (val.equals(value)) {
-                    return i;
-                }
+        final List<Object> values = values();
+        final int size = this.size();
+        for (int i = 0; i < size; i++) {
+            if (Objects.equals(values.get(i), value)) {
+                return i;
             }
         }
         return -1;
     }
 
     default int lastIndexOf(final Object value) {
+        final List<Object> values = values();
         for (int i = this.size() - 1; i >= 0; i--) {
-            final Object val = value(i);
-            if (val == null) {
-                if (value == null) {
-                    return i;
-                }
-            } else {
-                if (val.equals(value)) {
-                    return i;
-                }
+            if (Objects.equals(values.get(i), value)) {
+                return i;
             }
         }
         return -1;
@@ -152,6 +143,36 @@ public interface Tuple extends Iterable<Object>, Serializable, Comparable<io.arx
     default Iterator<Object> iterator() {
         return values().iterator();
     }
+
+    default boolean equalsIgnoreOrder(final Tuple other) {
+
+        if (this == other) {
+            return true;
+        }
+        final int thisSize = this.size();
+        if (other == null || thisSize != other.size()) {
+            return false;
+        }
+
+        // Store every element along with the number of times it occurs, then use the other map to decrease
+        final Map<Object, Integer> valueOccurrences = new HashMap<>(thisSize + 1, 1.0f);
+
+        for (final Object thisValue : this.values()) {
+            valueOccurrences.merge(thisValue, 1, Integer::sum);
+        }
+
+        for (final Object otherValue : other.values()) {
+            int occ = valueOccurrences.merge(otherValue, -1, Integer::sum);
+            if (occ < 0) {
+                return false; // element is not present: tuples are different
+            } else if (occ == 0) {
+                valueOccurrences.remove(otherValue);
+            }
+        }
+
+        return valueOccurrences.isEmpty();
+    }
+
 
     default int compareTo(final Tuple other) {
 

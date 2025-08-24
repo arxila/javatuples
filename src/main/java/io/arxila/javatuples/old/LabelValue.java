@@ -55,7 +55,7 @@ public final class LabelValue<A,B>
     
     /**
      * <p>
-     * Create tuple from array. Array has to have exactly two elements.
+     * Create tuple from array. Array needs to have exactly two elements.
      * </p>
      * 
      * @param <X> the array component type 

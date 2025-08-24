@@ -60,7 +60,7 @@ public final class Quartet<A,B,C,D>
     
     /**
      * <p>
-     * Create tuple from array. Array has to have exactly four elements.
+     * Create tuple from array. Array needs to have exactly four elements.
      * </p>
      * 
      * @param <X> the array component type 
@@ -80,7 +80,7 @@ public final class Quartet<A,B,C,D>
     
     /**
      * <p>
-     * Create tuple from collection. Collection has to have exactly four elements.
+     * Create tuple from collection. Collection needs to have exactly four elements.
      * </p>
      * 
      * @param <X> the collection component type 
@@ -96,7 +96,7 @@ public final class Quartet<A,B,C,D>
     
     /**
      * <p>
-     * Create tuple from iterable. Iterable has to have exactly four elements.
+     * Create tuple from iterable. Iterable needs to have exactly four elements.
      * </p>
      * 
      * @param <X> the iterable component type 

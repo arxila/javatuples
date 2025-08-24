@@ -1,0 +1,143 @@
+/*
+ * =========================================================================
+ *
+ *   Copyright (c) 2010-2025 Arxila OSS (https://arxila.io)
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+ *   implied. See the License for the specific language governing
+ *   permissions and limitations under the License.
+ *
+ * =========================================================================
+ */
+package io.arxila.javatuples;
+
+import java.io.Serial;
+import java.util.List;
+import java.util.Objects;
+
+/**
+ * <p>
+ * A tuple of seven elements.
+ * </p> 
+ * 
+ * @since 2.0.0
+ *
+ */
+public record Septet<A,B,C,D,E,F,G>(
+        A value0, B value1, C value2, D value3, E value4, F value5, G value6) implements Tuple {
+
+    @Serial
+    private static final long serialVersionUID = 5838056908660063458L;
+
+    private static final int SIZE = 7;
+
+    
+    public static <A,B,C,D,E,F,G> Septet<A,B,C,D,E,F,G> of(
+            final A value0, final B value1, final C value2, final D value3, final E value4,
+            final F value5, final G value6) {
+        return new Septet<>(value0, value1, value2, value3, value4, value5, value6);
+    }
+
+
+    @Override
+    public int size() {
+        return SIZE;
+    }
+
+    @Override
+    public Object value(final int index) {
+        return switch (index) {
+            case 0 -> this.value0;
+            case 1 -> this.value1;
+            case 2 -> this.value2;
+            case 3 -> this.value3;
+            case 4 -> this.value4;
+            case 5 -> this.value5;
+            case 6 -> this.value6;
+            default -> throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + SIZE);
+        };
+    }
+
+    @Override
+    public List<Object> values() {
+        return List.of(this.value0, this.value1, this.value2, this.value3, this.value4, this.value5, this.value6);
+    }
+
+    @Override
+    public boolean contains(final Object o) {
+        return (Objects.equals(this.value0, o)
+                || Objects.equals(this.value1, o)
+                || Objects.equals(this.value2, o)
+                || Objects.equals(this.value3, o)
+                || Objects.equals(this.value4, o)
+                || Objects.equals(this.value5, o)
+                || Objects.equals(this.value6, o));
+    }
+
+
+    public <X> Septet<X,B,C,D,E,F,G> withValue0(final X value0) {
+        return new Septet<>(value0, this.value1, this.value2, this.value3, this.value4, this.value5, this.value6);
+    }
+
+    public <X> Septet<A,X,C,D,E,F,G> withValue1(final X value1) {
+        return new Septet<>(this.value0, value1, this.value2, this.value3, this.value4, this.value5, this.value6);
+    }
+
+    public <X> Septet<A,B,X,D,E,F,G> withValue2(final X value2) {
+        return new Septet<>(this.value0, this.value1, value2, this.value3, this.value4, this.value5, this.value6);
+    }
+
+    public <X> Septet<A,B,C,X,E,F,G> withValue3(final X value3) {
+        return new Septet<>(this.value0, this.value1, this.value2, value3, this.value4, this.value5, this.value6);
+    }
+
+    public <X> Septet<A,B,C,D,X,F,G> withValue4(final X value4) {
+        return new Septet<>(this.value0, this.value1, this.value2, this.value3, value4, this.value5, this.value6);
+    }
+
+    public <X> Septet<A,B,C,D,E,X,G> withValue5(final X value5) {
+        return new Septet<>(this.value0, this.value1, this.value2, this.value3, this.value4, value5, this.value6);
+    }
+
+    public <X> Septet<A,B,C,D,E,F,X> withValue6(final X value6) {
+        return new Septet<>(this.value0, this.value1, this.value2, this.value3, this.value4, this.value5, value6);
+    }
+
+
+    public Sextet<B,C,D,E,F,G> withoutValue0() {
+        return new Sextet<>(this.value1, this.value2, this.value3, this.value4, this.value5, this.value6);
+    }
+
+    public Sextet<A,C,D,E,F,G> withoutValue1() {
+        return new Sextet<>(this.value0, this.value2, this.value3, this.value4, this.value5, this.value6);
+    }
+
+    public Sextet<A,B,D,E,F,G> withoutValue2() {
+        return new Sextet<>(this.value0, this.value1, this.value3, this.value4, this.value5, this.value6);
+    }
+
+    public Sextet<A,B,C,E,F,G> withoutValue3() {
+        return new Sextet<>(this.value0, this.value1, this.value2, this.value4, this.value5, this.value6);
+    }
+
+    public Sextet<A,B,C,D,F,G> withoutValue4() {
+        return new Sextet<>(this.value0, this.value1, this.value2, this.value3, this.value5, this.value6);
+    }
+
+    public Sextet<A,B,C,D,E,G> withoutValue5() {
+        return new Sextet<>(this.value0, this.value1, this.value2, this.value3, this.value4, this.value6);
+    }
+
+    public Sextet<A,B,C,D,E,F> withoutValue6() {
+        return new Sextet<>(this.value0, this.value1, this.value2, this.value3, this.value4, this.value5);
+    }
+
+}
