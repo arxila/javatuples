@@ -44,6 +44,26 @@ public record Quintet<A,B,C,D,E>(A value0, B value1, C value2, D value3, E value
         return new Quintet<>(value0, value1, value2, value3, value4);
     }
 
+    public static <X> Quintet<X,X,X,X,X> of(final X[] values) {
+        if (values == null) {
+            throw new NullPointerException("values is null");
+        }
+        if (values.length != SIZE) {
+            throw new IllegalArgumentException("Expected size " + SIZE + " (but was:  " + values.length + ")");
+        }
+        return new Quintet<>(values[0], values[1], values[2], values[3], values[4]);
+    }
+
+    public static <X> Quintet<X,X,X,X,X> of(final List<X> values) {
+        if (values == null) {
+            throw new NullPointerException("values is null");
+        }
+        if (values.size() != SIZE) {
+            throw new IllegalArgumentException("Expected size " + SIZE + " (but was:  " + values.size() + ")");
+        }
+        return new Quintet<>(values.get(0), values.get(1), values.get(2), values.get(3), values.get(4));
+    }
+
 
     @Override
     public int size() {

@@ -39,8 +39,28 @@ public record Solo<A>(A value0) implements Tuple {
     private static final int SIZE = 1;
 
 
-    public static <A> Solo<A> of(final A value0) {
+    public static <X> Solo<X> of(final X value0) {
         return new Solo<>(value0);
+    }
+
+    public static <X> Solo<X> of(final X[] values) {
+        if (values == null) {
+            throw new NullPointerException("values is null");
+        }
+        if (values.length != SIZE) {
+            throw new IllegalArgumentException("Expected size " + SIZE + " (but was:  " + values.length + ")");
+        }
+        return new Solo<>(values[0]);
+    }
+
+    public static <X> Solo<X> of(final List<X> values) {
+        if (values == null) {
+            throw new NullPointerException("values is null");
+        }
+        if (values.size() != SIZE) {
+            throw new IllegalArgumentException("Expected size " + SIZE + " (but was:  " + values.size() + ")");
+        }
+        return new Solo<>(values.get(0));
     }
 
 

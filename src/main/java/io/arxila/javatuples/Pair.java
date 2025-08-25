@@ -39,8 +39,28 @@ public record Pair<A,B>(A value0, B value1) implements Tuple {
     private static final int SIZE = 2;
 
     
-    public static <A,B> Pair<A,B> of(final A value0, final B value1) {
+    public static <X,Y> Pair<X,Y> of(final X value0, final Y value1) {
         return new Pair<>(value0, value1);
+    }
+
+    public static <X> Pair<X,X> of(final X[] values) {
+        if (values == null) {
+            throw new NullPointerException("values is null");
+        }
+        if (values.length != SIZE) {
+            throw new IllegalArgumentException("Expected size " + SIZE + " (but was:  " + values.length + ")");
+        }
+        return new Pair<>(values[0], values[1]);
+    }
+
+    public static <X> Pair<X,X> of(final List<X> values) {
+        if (values == null) {
+            throw new NullPointerException("values is null");
+        }
+        if (values.size() != SIZE) {
+            throw new IllegalArgumentException("Expected size " + SIZE + " (but was:  " + values.size() + ")");
+        }
+        return new Pair<>(values.get(0), values.get(1));
     }
 
 

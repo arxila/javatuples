@@ -43,6 +43,26 @@ public record Quartet<A,B,C,D>(A value0, B value1, C value2, D value3) implement
         return new Quartet<>(value0, value1, value2, value3);
     }
 
+    public static <X> Quartet<X,X,X,X> of(final X[] values) {
+        if (values == null) {
+            throw new NullPointerException("values is null");
+        }
+        if (values.length != SIZE) {
+            throw new IllegalArgumentException("Expected size " + SIZE + " (but was:  " + values.length + ")");
+        }
+        return new Quartet<>(values[0], values[1], values[2], values[3]);
+    }
+
+    public static <X> Quartet<X,X,X,X> of(final List<X> values) {
+        if (values == null) {
+            throw new NullPointerException("values is null");
+        }
+        if (values.size() != SIZE) {
+            throw new IllegalArgumentException("Expected size " + SIZE + " (but was:  " + values.size() + ")");
+        }
+        return new Quartet<>(values.get(0), values.get(1), values.get(2), values.get(3));
+    }
+
 
     @Override
     public int size() {

@@ -46,6 +46,28 @@ public record Septet<A,B,C,D,E,F,G>(
         return new Septet<>(value0, value1, value2, value3, value4, value5, value6);
     }
 
+    public static <X> Septet<X,X,X,X,X,X,X> of(final X[] values) {
+        if (values == null) {
+            throw new NullPointerException("values is null");
+        }
+        if (values.length != SIZE) {
+            throw new IllegalArgumentException("Expected size " + SIZE + " (but was:  " + values.length + ")");
+        }
+        return new Septet<>(values[0], values[1], values[2], values[3], values[4],
+                            values[5], values[6]);
+    }
+
+    public static <X> Septet<X,X,X,X,X,X,X> of(final List<X> values) {
+        if (values == null) {
+            throw new NullPointerException("values is null");
+        }
+        if (values.size() != SIZE) {
+            throw new IllegalArgumentException("Expected size " + SIZE + " (but was:  " + values.size() + ")");
+        }
+        return new Septet<>(values.get(0), values.get(1), values.get(2), values.get(3), values.get(4),
+                            values.get(5), values.get(6));
+    }
+
 
     @Override
     public int size() {
@@ -109,6 +131,12 @@ public record Septet<A,B,C,D,E,F,G>(
 
     public <X> Septet<A,B,C,D,E,F,X> withValue6(final X value6) {
         return new Septet<>(this.value0, this.value1, this.value2, this.value3, this.value4, this.value5, value6);
+    }
+
+
+    public <X> Octet<A,B,C,D,E,F,G,X> withValue7(final X value7) {
+        return new Octet<>(this.value0, this.value1, this.value2, this.value3, this.value4,
+                           this.value5, this.value6, value7);
     }
 
 

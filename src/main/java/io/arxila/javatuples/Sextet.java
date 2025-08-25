@@ -44,6 +44,26 @@ public record Sextet<A,B,C,D,E,F>(A value0, B value1, C value2, D value3, E valu
         return new Sextet<>(value0, value1, value2, value3, value4, value5);
     }
 
+    public static <X> Sextet<X,X,X,X,X,X> of(final X[] values) {
+        if (values == null) {
+            throw new NullPointerException("values is null");
+        }
+        if (values.length != SIZE) {
+            throw new IllegalArgumentException("Expected size " + SIZE + " (but was:  " + values.length + ")");
+        }
+        return new Sextet<>(values[0], values[1], values[2], values[3], values[4], values[5]);
+    }
+
+    public static <X> Sextet<X,X,X,X,X,X> of(final List<X> values) {
+        if (values == null) {
+            throw new NullPointerException("values is null");
+        }
+        if (values.size() != SIZE) {
+            throw new IllegalArgumentException("Expected size " + SIZE + " (but was:  " + values.size() + ")");
+        }
+        return new Sextet<>(values.get(0), values.get(1), values.get(2), values.get(3), values.get(4), values.get(5));
+    }
+
 
     @Override
     public int size() {

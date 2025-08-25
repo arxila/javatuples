@@ -34,13 +34,33 @@ import java.util.Objects;
 public record Trio<A,B,C>(A value0, B value1, C value2) implements Tuple {
 
     @Serial
-    private static final long serialVersionUID = 7015864444752112655L;
+    private static final long serialVersionUID = -2282235909469467162L;
 
     private static final int SIZE = 3;
 
     
-    public static <A,B,C> Trio<A,B,C> of(final A value0, final B value1, final C value2) {
+    public static <X,Y,Z> Trio<X,Y,Z> of(final X value0, final Y value1, final Z value2) {
         return new Trio<>(value0, value1, value2);
+    }
+
+    public static <X> Trio<X,X,X> of(final X[] values) {
+        if (values == null) {
+            throw new NullPointerException("values is null");
+        }
+        if (values.length != SIZE) {
+            throw new IllegalArgumentException("Expected size " + SIZE + " (but was:  " + values.length + ")");
+        }
+        return new Trio<>(values[0], values[1], values[2]);
+    }
+
+    public static <X> Trio<X,X,X> of(final List<X> values) {
+        if (values == null) {
+            throw new NullPointerException("values is null");
+        }
+        if (values.size() != SIZE) {
+            throw new IllegalArgumentException("Expected size " + SIZE + " (but was:  " + values.size() + ")");
+        }
+        return new Trio<>(values.get(0), values.get(1), values.get(2));
     }
 
 
