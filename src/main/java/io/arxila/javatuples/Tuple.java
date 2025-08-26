@@ -20,7 +20,6 @@
 package io.arxila.javatuples;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -39,7 +38,7 @@ import java.util.Objects;
  * @since 2.0.0
  *
  */
-public interface Tuple extends Iterable<Object>, Serializable, Comparable<Tuple> {
+public interface Tuple extends Iterable<Object>, Serializable {
 
     int size();
 
@@ -96,7 +95,7 @@ public interface Tuple extends Iterable<Object>, Serializable, Comparable<Tuple>
 
 
     default int indexOf(final Object value) {
-        final List<Object> values = values();
+        final List<?> values = values();
         final int size = this.size();
         for (int i = 0; i < size; i++) {
             if (Objects.equals(values.get(i), value)) {
@@ -107,7 +106,7 @@ public interface Tuple extends Iterable<Object>, Serializable, Comparable<Tuple>
     }
 
     default int lastIndexOf(final Object value) {
-        final List<Object> values = values();
+        final List<?> values = values();
         for (int i = this.size() - 1; i >= 0; i--) {
             if (Objects.equals(values.get(i), value)) {
                 return i;
@@ -117,25 +116,16 @@ public interface Tuple extends Iterable<Object>, Serializable, Comparable<Tuple>
     }
 
 
-    default <X> List<X> toList(final Class<X> ofClass) {
-        // noinspection unchecked
-        return (List<X>) this.values(); // already returns an immutable list
-    }
-
     default List<Object> toList() {
         return this.values(); // already returns an immutable list
     }
 
-    default <X> X[] toArray(final Class<X> ofClass) {
-        if (ofClass == null) {
-            throw new NullPointerException("ofClass cannot be null");
-        }
-        // noinspection unchecked
-        return this.values().toArray((X[]) Array.newInstance(ofClass, this.size()));
-    }
-
     default Object[] toArray() {
         return this.values().toArray();
+    }
+
+    default <X> X[] toArray(final X[] a) {
+        return this.values().toArray(a);
     }
 
 
@@ -149,19 +139,21 @@ public interface Tuple extends Iterable<Object>, Serializable, Comparable<Tuple>
         if (this == other) {
             return true;
         }
-        final int thisSize = this.size();
-        if (other == null || thisSize != other.size()) {
+        final int size = this.size();
+        if (other == null || size != other.size()) {
             return false;
         }
 
         // Store every element along with the number of times it occurs, then use the other map to decrease
-        final Map<Object, Integer> valueOccurrences = new HashMap<>(thisSize + 1, 1.0f);
+        final Map<Object, Integer> valueOccurrences = new HashMap<>(size + 1, 1.0f);
 
-        for (final Object thisValue : this.values()) {
+        for (int i = 0; i < size; i++) {
+            final Object thisValue = this.value(i);
             valueOccurrences.merge(thisValue, 1, Integer::sum);
         }
 
-        for (final Object otherValue : other.values()) {
+        for (int i = 0; i < size; i++) {
+            final Object otherValue = other.value(i);
             int occ = valueOccurrences.merge(otherValue, -1, Integer::sum);
             if (occ < 0) {
                 return false; // element is not present: tuples are different
@@ -173,48 +165,5 @@ public interface Tuple extends Iterable<Object>, Serializable, Comparable<Tuple>
         return valueOccurrences.isEmpty();
     }
 
-
-    default int compareTo(final Tuple other) {
-
-        final List<Object> thisValues = this.values();
-        final List<Object> otherValues = other.values();
-
-        int minLength = Math.min(this.size(), other.size());
-
-        for (int i = 0; i < minLength; i++) {
-
-            final Object a = thisValues.get(i);
-            final Object b = otherValues.get(i);
-
-            // Null policy: nullsFirst
-            if (a == b) { // covers both null and identical reference
-                continue;
-            }
-            if (a == null) {
-                return -1;
-            }
-            if (b == null) {
-                return 1;
-            }
-
-            if (!(a instanceof Comparable)) {
-                throw new ClassCastException(
-                        "Tuple elements must implement Comparable, but element " + i +
-                        " in tuple " + this.toString() + " does not.");
-            }
-
-            @SuppressWarnings("unchecked")
-            int comparison = ((Comparable<Object>) a).compareTo(b);
-
-            if (comparison != 0) {
-                return comparison;
-            }
-
-        }
-
-        // If all common elements are equal, the shorter tuple is considered smaller.
-        return Integer.compare(this.size(), other.size());
-
-    }
 
 }
