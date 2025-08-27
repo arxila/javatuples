@@ -34,7 +34,7 @@ import java.util.List;
 public record LabelValue<K,V>(K label, V value) implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = 1002919099724183705L;
+    private static final long serialVersionUID = -2526576869403695502L;
 
     private static final int SIZE = 2;
 
