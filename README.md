@@ -29,7 +29,7 @@ Tuples
 ------
 
 A tuple is just a sequence of objects that do not necessarily relate to each other in any way. For
-example, [23, "Saturn", java.sql.Connection@li734s] can be considered a tuple of three elements (a triple,
+example, `[23, "Saturn", java.sql.Connection@li734s]` can be considered a tuple of three elements (a triple,
 or _trio_) containing an `Integer`, a `String`, and a JDBC `Connection` object. As simple as that.
 
 JavaTuples offers two types of tuples: **named** and **numbered**. Named tuples are simply a set of named
@@ -64,11 +64,11 @@ Numbered tuples are:
   * `Tuple9<A,B,C,D,E,F,G,H,I>` (9 elements)
   * `Tuple10<A,B,C,D,E,F,G,H,I,J>` (10 elements)
 
-Besides, JavaTuples also provides a small set of tuple-shaped utility classes:
+Additionally, JavaTuples also provides a small set of tuple-shaped utility classes:
 
   * `KeyValue<K,V>`
   * `LabelValue<L,V>`
-  * `MapEntry<K,V>` (implements `java.util.Map.Entry`)
+  * `MapEntry<K,V>` (implements the `java.util.Map.Entry` interface)
 
 
 Usage
@@ -113,6 +113,9 @@ Values in tuples are always numbered from 0 to N-1, and can be accessed by means
 String value0 = pair.value0();
 Integer value1 = pair.value1();
 Long value9 = decet.value9();
+
+// All values as a list
+var values = tuple.values();     // values: List<Object>
 ```
 Tuples are also iterable and provide a series of useful `contains*` methods:
 
@@ -123,13 +126,36 @@ for (final Object value : tuple) {
 }
 
 // Contains methods
-tuple.contains("Hello");            // true if the value is contained in the tuple
-tuple.containsAll("Hello",42);      // true if all values are contained in the tuple
-tuple.containsAny(41,42);           // true if any of the values are contained in the tuple
+if (tuple.contains("Hello")) {...}       // true if a single value is contained in the tuple
+if (tuple.containsAll("Hello",42)) {...} // true if all specified values are contained in the tuple
+if (tuple.containsAny(41,42)) {...}      // true if any of the specified values are contained in the tuple
 ```
 
 Also, an `equalsIgnoreOrder()` method is provided to compare tuples ignoring the order of their values:
 
 ```java
-tuple.equalsIgnoreOrder(otherTuple); // true
+if (tuple.equalsIgnoreOrder(otherTuple)) {...}  // true if tuples contain the same values in any order
 ```
+
+### Modifying Values
+
+Tuples are immutable, but you can create new instances with modified values using _wither_ methods:
+
+```java
+var pair = Pair.of("Hello", 42);            // Pair<String,Integer>("Hello", 42)
+var newPair = pair.withValue1("World");     // Pair<String,String>("Hello", "World")
+```
+
+### Growing and Shrinking
+
+By adding new elements to the N-th position of a tuple, it will _grow_, i.e., a new tuple one size larger will
+be created with the new element added to the end. Similarly, by removing elements from any positions of a tuple
+it will _shrink_, i.e., a new tuple one size smaller will be created with the element removed from the
+tuple:
+
+```java
+var pair = Pair.of("Hello", 42);            // Pair<String,Integer>
+var trio = pair.withValue2("!");            // Grow to Trio<String,Integer,String>
+var solo = pair.withoutValue1();            // Shrink to Solo<String>
+```
+
