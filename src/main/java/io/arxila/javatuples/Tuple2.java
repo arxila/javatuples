@@ -25,42 +25,42 @@ import java.util.Objects;
 
 /**
  * <p>
- * A tuple of one element. Named equivalent to {@link Tuple1}.
+ * A tuple of two elements. Numbered equivalent to {@link Pair}.
  * </p> 
  * 
  * @since 2.0.0
  *
  */
-public record Solo<A>(A value0) implements Tuple {
+public record Tuple2<A,B>(A value0, B value1) implements Tuple {
 
     @Serial
-    private static final long serialVersionUID = 9090931632392297532L;
+    private static final long serialVersionUID = 955824329524466073L;
 
-    private static final int SIZE = 1;
+    private static final int SIZE = 2;
 
-
-    public static <X> Solo<X> of(final X value0) {
-        return new Solo<>(value0);
+    
+    public static <X,Y> Tuple2<X,Y> of(final X value0, final Y value1) {
+        return new Tuple2<>(value0, value1);
     }
 
-    public static <X> Solo<X> of(final X[] values) {
+    public static <X> Tuple2<X,X> of(final X[] values) {
         if (values == null) {
             throw new NullPointerException("values is null");
         }
         if (values.length != SIZE) {
             throw new IllegalArgumentException("Expected size " + SIZE + " (but was:  " + values.length + ")");
         }
-        return new Solo<>(values[0]);
+        return new Tuple2<>(values[0], values[1]);
     }
 
-    public static <X> Solo<X> of(final List<X> values) {
+    public static <X> Tuple2<X,X> of(final List<X> values) {
         if (values == null) {
             throw new NullPointerException("values is null");
         }
         if (values.size() != SIZE) {
             throw new IllegalArgumentException("Expected size " + SIZE + " (but was:  " + values.size() + ")");
         }
-        return new Solo<>(values.get(0));
+        return new Tuple2<>(values.get(0), values.get(1));
     }
 
 
@@ -71,35 +71,45 @@ public record Solo<A>(A value0) implements Tuple {
 
     @Override
     public Object value(final int index) {
-        if (index == 0) {
-            return this.value0;
-        }
-        throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + SIZE);
+        return switch (index) {
+            case 0 -> this.value0;
+            case 1 -> this.value1;
+            default -> throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + SIZE);
+        };
     }
 
     @Override
     public List<Object> values() {
-        return List.of(this.value0);
+        return List.of(this.value0, this.value1);
     }
 
     @Override
     public boolean contains(final Object o) {
-        return Objects.equals(this.value0, o);
+        return (Objects.equals(this.value0, o)
+                || Objects.equals(this.value1, o));
     }
 
 
-    public <X> Solo<X> withValue0(final X value0) {
-        return new Solo<>(value0);
+    public <X> Tuple2<X,B> withValue0(final X value0) {
+        return new Tuple2<>(value0, this.value1);
+    }
+
+    public <X> Tuple2<A,X> withValue1(final X value1) {
+        return new Tuple2<>(this.value0, value1);
     }
 
 
-    public <X> Pair<A,X> withValue1(final X value1) {
-        return new Pair<>(this.value0, value1);
+    public <X> Tuple3<A,B,X> withValue2(final X value2) {
+        return new Tuple3<>(this.value0, this.value1, value2);
     }
 
 
-    public Empty withoutValue0() {
-        return new Empty();
+    public Tuple1<B> withoutValue0() {
+        return new Tuple1<>(this.value1);
+    }
+
+    public Tuple1<A> withoutValue1() {
+        return new Tuple1<>(this.value0);
     }
 
 }

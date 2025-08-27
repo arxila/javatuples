@@ -22,26 +22,25 @@ package io.arxila.javatuples;
 import java.io.Serial;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * <p>
- * A tuple of zero elements. Named equivalent to {@link Tuple0}.
+ * A tuple of zero elements. Numbered equivalent to {@link Empty}.
  * </p> 
  * 
  * @since 2.0.0
  *
  */
-public record Empty() implements Tuple {
+public record Tuple0() implements Tuple {
 
     @Serial
-    private static final long serialVersionUID = 2762955134451185970L;
+    private static final long serialVersionUID = -5405868154463287165L;
 
     private static final int SIZE = 0;
 
 
-    public static Empty of() {
-        return new Empty();
+    public static Tuple0 of() {
+        return new Tuple0();
     }
 
 
@@ -66,8 +65,8 @@ public record Empty() implements Tuple {
     }
 
 
-    public <X> Solo<X> withValue0(final X value0) {
-        return new Solo<>(value0);
+    public <X> Tuple1<X> withValue0(final X value0) {
+        return new Tuple1<>(value0);
     }
 
 }

@@ -25,42 +25,42 @@ import java.util.Objects;
 
 /**
  * <p>
- * A tuple of one element. Named equivalent to {@link Tuple1}.
+ * A tuple of one element. Numbered equivalent to {@link Solo}.
  * </p> 
  * 
  * @since 2.0.0
  *
  */
-public record Solo<A>(A value0) implements Tuple {
+public record Tuple1<A>(A value0) implements Tuple {
 
     @Serial
-    private static final long serialVersionUID = 9090931632392297532L;
+    private static final long serialVersionUID = 7318579307209871888L;
 
     private static final int SIZE = 1;
 
 
-    public static <X> Solo<X> of(final X value0) {
-        return new Solo<>(value0);
+    public static <X> Tuple1<X> of(final X value0) {
+        return new Tuple1<>(value0);
     }
 
-    public static <X> Solo<X> of(final X[] values) {
+    public static <X> Tuple1<X> of(final X[] values) {
         if (values == null) {
             throw new NullPointerException("values is null");
         }
         if (values.length != SIZE) {
             throw new IllegalArgumentException("Expected size " + SIZE + " (but was:  " + values.length + ")");
         }
-        return new Solo<>(values[0]);
+        return new Tuple1<>(values[0]);
     }
 
-    public static <X> Solo<X> of(final List<X> values) {
+    public static <X> Tuple1<X> of(final List<X> values) {
         if (values == null) {
             throw new NullPointerException("values is null");
         }
         if (values.size() != SIZE) {
             throw new IllegalArgumentException("Expected size " + SIZE + " (but was:  " + values.size() + ")");
         }
-        return new Solo<>(values.get(0));
+        return new Tuple1<>(values.get(0));
     }
 
 
@@ -88,18 +88,18 @@ public record Solo<A>(A value0) implements Tuple {
     }
 
 
-    public <X> Solo<X> withValue0(final X value0) {
-        return new Solo<>(value0);
+    public <X> Tuple1<X> withValue0(final X value0) {
+        return new Tuple1<>(value0);
     }
 
 
-    public <X> Pair<A,X> withValue1(final X value1) {
-        return new Pair<>(this.value0, value1);
+    public <X> Tuple2<A,X> withValue1(final X value1) {
+        return new Tuple2<>(this.value0, value1);
     }
 
 
-    public Empty withoutValue0() {
-        return new Empty();
+    public Tuple0 withoutValue0() {
+        return new Tuple0();
     }
 
 }

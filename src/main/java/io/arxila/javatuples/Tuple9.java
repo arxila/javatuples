@@ -25,46 +25,46 @@ import java.util.Objects;
 
 /**
  * <p>
- * A tuple of nine elements. Named equivalent to {@link Tuple9}.
+ * A tuple of nine elements. Numbered equivalent to {@link Nonet}.
  * </p> 
  * 
  * @since 2.0.0
  *
  */
-public record Nonet<A,B,C,D,E,F,G,H,I>(
+public record Tuple9<A,B,C,D,E,F,G,H,I>(
         A value0, B value1, C value2, D value3, E value4, F value5, G value6, H value7, I value8) implements Tuple {
 
     @Serial
-    private static final long serialVersionUID = -4003445761599072350L;
+    private static final long serialVersionUID = -3482850476935398578L;
 
     private static final int SIZE = 9;
 
     
-    public static <A,B,C,D,E,F,G,H,I> Nonet<A,B,C,D,E,F,G,H,I> of(
+    public static <A,B,C,D,E,F,G,H,I> Tuple9<A,B,C,D,E,F,G,H,I> of(
             final A value0, final B value1, final C value2, final D value3, final E value4,
             final F value5, final G value6, final H value7, final I value8) {
-        return new Nonet<>(value0, value1, value2, value3, value4, value5, value6, value7, value8);
+        return new Tuple9<>(value0, value1, value2, value3, value4, value5, value6, value7, value8);
     }
 
-    public static <X> Nonet<X,X,X,X,X,X,X,X,X> of(final X[] values) {
+    public static <X> Tuple9<X,X,X,X,X,X,X,X,X> of(final X[] values) {
         if (values == null) {
             throw new NullPointerException("values is null");
         }
         if (values.length != SIZE) {
             throw new IllegalArgumentException("Expected size " + SIZE + " (but was:  " + values.length + ")");
         }
-        return new Nonet<>(values[0], values[1], values[2], values[3], values[4],
+        return new Tuple9<>(values[0], values[1], values[2], values[3], values[4],
                            values[5], values[6], values[7], values[8]);
     }
 
-    public static <X> Nonet<X,X,X,X,X,X,X,X,X> of(final List<X> values) {
+    public static <X> Tuple9<X,X,X,X,X,X,X,X,X> of(final List<X> values) {
         if (values == null) {
             throw new NullPointerException("values is null");
         }
         if (values.size() != SIZE) {
             throw new IllegalArgumentException("Expected size " + SIZE + " (but was:  " + values.size() + ")");
         }
-        return new Nonet<>(values.get(0), values.get(1), values.get(2), values.get(3), values.get(4),
+        return new Tuple9<>(values.get(0), values.get(1), values.get(2), values.get(3), values.get(4),
                            values.get(5), values.get(6), values.get(7), values.get(8));
     }
 
@@ -110,90 +110,90 @@ public record Nonet<A,B,C,D,E,F,G,H,I>(
     }
 
 
-    public <X> Nonet<X,B,C,D,E,F,G,H,I> withValue0(final X value0) {
-        return new Nonet<>(value0, this.value1, this.value2, this.value3, this.value4, this.value5,
+    public <X> Tuple9<X,B,C,D,E,F,G,H,I> withValue0(final X value0) {
+        return new Tuple9<>(value0, this.value1, this.value2, this.value3, this.value4, this.value5,
                            this.value6, this.value7, this.value8);
     }
 
-    public <X> Nonet<A,X,C,D,E,F,G,H,I> withValue1(final X value1) {
-        return new Nonet<>(this.value0, value1, this.value2, this.value3, this.value4, this.value5,
+    public <X> Tuple9<A,X,C,D,E,F,G,H,I> withValue1(final X value1) {
+        return new Tuple9<>(this.value0, value1, this.value2, this.value3, this.value4, this.value5,
                            this.value6, this.value7, this.value8);
     }
 
-    public <X> Nonet<A,B,X,D,E,F,G,H,I> withValue2(final X value2) {
-        return new Nonet<>(this.value0, this.value1, value2, this.value3, this.value4, this.value5,
+    public <X> Tuple9<A,B,X,D,E,F,G,H,I> withValue2(final X value2) {
+        return new Tuple9<>(this.value0, this.value1, value2, this.value3, this.value4, this.value5,
                            this.value6, this.value7, this.value8);
     }
 
-    public <X> Nonet<A,B,C,X,E,F,G,H,I> withValue3(final X value3) {
-        return new Nonet<>(this.value0, this.value1, this.value2, value3, this.value4, this.value5,
+    public <X> Tuple9<A,B,C,X,E,F,G,H,I> withValue3(final X value3) {
+        return new Tuple9<>(this.value0, this.value1, this.value2, value3, this.value4, this.value5,
                            this.value6, this.value7, this.value8);
     }
 
-    public <X> Nonet<A,B,C,D,X,F,G,H,I> withValue4(final X value4) {
-        return new Nonet<>(this.value0, this.value1, this.value2, this.value3, value4, this.value5,
+    public <X> Tuple9<A,B,C,D,X,F,G,H,I> withValue4(final X value4) {
+        return new Tuple9<>(this.value0, this.value1, this.value2, this.value3, value4, this.value5,
                            this.value6, this.value7, this.value8);
     }
 
-    public <X> Nonet<A,B,C,D,E,X,G,H,I> withValue5(final X value5) {
-        return new Nonet<>(this.value0, this.value1, this.value2, this.value3, this.value4, value5,
+    public <X> Tuple9<A,B,C,D,E,X,G,H,I> withValue5(final X value5) {
+        return new Tuple9<>(this.value0, this.value1, this.value2, this.value3, this.value4, value5,
                            this.value6, this.value7, this.value8);
     }
 
-    public <X> Nonet<A,B,C,D,E,F,X,H,I> withValue6(final X value6) {
-        return new Nonet<>(this.value0, this.value1, this.value2, this.value3, this.value4, this.value5,
+    public <X> Tuple9<A,B,C,D,E,F,X,H,I> withValue6(final X value6) {
+        return new Tuple9<>(this.value0, this.value1, this.value2, this.value3, this.value4, this.value5,
                            value6, this.value7, this.value8);
     }
 
-    public <X> Nonet<A,B,C,D,E,F,G,X,I> withValue7(final X value7) {
-        return new Nonet<>(this.value0, this.value1, this.value2, this.value3, this.value4, this.value5,
+    public <X> Tuple9<A,B,C,D,E,F,G,X,I> withValue7(final X value7) {
+        return new Tuple9<>(this.value0, this.value1, this.value2, this.value3, this.value4, this.value5,
                            this.value6, value7, this.value8);
     }
 
-    public <X> Nonet<A,B,C,D,E,F,G,H,X> withValue8(final X value8) {
-        return new Nonet<>(this.value0, this.value1, this.value2, this.value3, this.value4, this.value5,
+    public <X> Tuple9<A,B,C,D,E,F,G,H,X> withValue8(final X value8) {
+        return new Tuple9<>(this.value0, this.value1, this.value2, this.value3, this.value4, this.value5,
                            this.value6, this.value7, value8);
     }
 
 
-    public <X> Decet<A,B,C,D,E,F,G,H,I,X> withValue9(final X value9) {
-        return new Decet<>(this.value0, this.value1, this.value2, this.value3, this.value4, this.value5,
+    public <X> Tuple10<A,B,C,D,E,F,G,H,I,X> withValue9(final X value9) {
+        return new Tuple10<>(this.value0, this.value1, this.value2, this.value3, this.value4, this.value5,
                            this.value6, this.value7, this.value8, value9);
     }
 
 
-    public Octet<B,C,D,E,F,G,H,I> withoutValue0() {
-        return new Octet<>(this.value1, this.value2, this.value3, this.value4, this.value5,
+    public Tuple8<B,C,D,E,F,G,H,I> withoutValue0() {
+        return new Tuple8<>(this.value1, this.value2, this.value3, this.value4, this.value5,
                            this.value6, this.value7, this.value8);
     }
 
-    public Octet<A,C,D,E,F,G,H,I> withoutValue1() {
-        return new Octet<>(this.value0, this.value2, this.value3, this.value4, this.value5,
+    public Tuple8<A,C,D,E,F,G,H,I> withoutValue1() {
+        return new Tuple8<>(this.value0, this.value2, this.value3, this.value4, this.value5,
                            this.value6, this.value7, this.value8);
     }
 
-    public Octet<A,B,D,E,F,G,H,I> withoutValue2() {
-        return new Octet<>(this.value0, this.value1, this.value3, this.value4, this.value5,
+    public Tuple8<A,B,D,E,F,G,H,I> withoutValue2() {
+        return new Tuple8<>(this.value0, this.value1, this.value3, this.value4, this.value5,
                            this.value6, this.value7, this.value8);
     }
 
-    public Octet<A,B,C,E,F,G,H,I> withoutValue3() {
-        return new Octet<>(this.value0, this.value1, this.value2, this.value4, this.value5,
+    public Tuple8<A,B,C,E,F,G,H,I> withoutValue3() {
+        return new Tuple8<>(this.value0, this.value1, this.value2, this.value4, this.value5,
                            this.value6, this.value7, this.value8);
     }
 
-    public Octet<A,B,C,D,F,G,H,I> withoutValue4() {
-        return new Octet<>(this.value0, this.value1, this.value2, this.value3, this.value5,
+    public Tuple8<A,B,C,D,F,G,H,I> withoutValue4() {
+        return new Tuple8<>(this.value0, this.value1, this.value2, this.value3, this.value5,
                            this.value6, this.value7, this.value8);
     }
 
-    public Octet<A,B,C,D,E,G,H,I> withoutValue5() {
-        return new Octet<>(this.value0, this.value1, this.value2, this.value3, this.value4,
+    public Tuple8<A,B,C,D,E,G,H,I> withoutValue5() {
+        return new Tuple8<>(this.value0, this.value1, this.value2, this.value3, this.value4,
                            this.value6, this.value7, this.value8);
     }
 
-    public Octet<A,B,C,D,E,F,H,I> withoutValue6() {
-        return new Octet<>(this.value0, this.value1, this.value2, this.value3, this.value4,
+    public Tuple8<A,B,C,D,E,F,H,I> withoutValue6() {
+        return new Tuple8<>(this.value0, this.value1, this.value2, this.value3, this.value4,
                            this.value5, this.value7, this.value8);
     }
 
@@ -202,8 +202,8 @@ public record Nonet<A,B,C,D,E,F,G,H,I>(
                            this.value5, this.value6, this.value8);
     }
 
-    public Octet<A,B,C,D,E,F,G,H> withoutValue8() {
-        return new Octet<>(this.value0, this.value1, this.value2, this.value3, this.value4,
+    public Tuple8<A,B,C,D,E,F,G,H> withoutValue8() {
+        return new Tuple8<>(this.value0, this.value1, this.value2, this.value3, this.value4,
                            this.value5, this.value6, this.value7);
     }
 

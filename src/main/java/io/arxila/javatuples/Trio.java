@@ -25,7 +25,7 @@ import java.util.Objects;
 
 /**
  * <p>
- * A tuple of three elements.
+ * A tuple of three elements. Named equivalent to {@link Tuple3}.
  * </p> 
  * 
  * @since 2.0.0

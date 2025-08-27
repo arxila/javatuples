@@ -25,7 +25,7 @@ import java.util.Objects;
 
 /**
  * <p>
- * A tuple of two elements.
+ * A tuple of two elements. Named equivalent to {@link Tuple2}.
  * </p> 
  * 
  * @since 2.0.0
