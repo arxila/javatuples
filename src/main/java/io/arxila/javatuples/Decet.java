@@ -25,7 +25,7 @@ import java.util.Objects;
 
 /**
  * <p>
- * A tuple of nine elements. Named equivalent to {@link Tuple9}.
+ * A tuple of ten elements. Named equivalent to {@link Tuple9}.
  * </p> 
  * 
  * @since 2.0.0

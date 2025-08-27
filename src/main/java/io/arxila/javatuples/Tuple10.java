@@ -25,7 +25,7 @@ import java.util.Objects;
 
 /**
  * <p>
- * A tuple of nine elements. Numbered equivalent to {@link Decet}.
+ * A tuple of ten elements. Numbered equivalent to {@link Decet}.
  * </p> 
  * 
  * @since 2.0.0

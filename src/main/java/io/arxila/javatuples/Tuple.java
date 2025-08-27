@@ -31,9 +31,6 @@ import java.util.Objects;
  * <p>
  *   Base interface for all tuples.
  * </p>
- * <p>
- *   Comparison is based on the natural ordering of the elements and null-first.
- * </p>
  *
  * @since 2.0.0
  *
