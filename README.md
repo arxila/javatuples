@@ -1,14 +1,15 @@
 JavaTuples
 ==========
 
-JavaTuples is a simple java library that provides a set of tuple classes. It provides:
+JavaTuples is a simple java library that provides a set of tuple classes. It includes:
 
   * A general tuple interface: `io.arxila.javatuples.Tuple`
   * A set of _named_ tuple classes: `Empty`, `Solo`, `Pair`, `Trio`, `Quartet`, `Quintet`, `Sextet`, `Septet`, `Octet`, `Nonet`, `Decet`.
   * A set of _numbered_ tuple classes: `Tuple0`, `Tuple1`, `Tuple2`, `Tuple3`, `Tuple4`, `Tuple5`, `Tuple6`, `Tuple7`, `Tuple8`, `Tuple9`, `Tuple10`.
   * Some common tuple-shaped utility classes: `KeyValue`, `LabelValue`, `MapEntry`.
 
-All tuples are <ins>**immutable**</ins>, and therefore <ins>**thread-safe**</ins>.
+All tuples are <ins>**immutable**</ins>, and therefore <ins>**thread-safe**</ins>. Also, they are **iterable**
+and **serializable**. Tuples are implemented as Java [records](https://docs.oracle.com/en/java/javase/17/language/records.html).
 
 JavaTuples is open-source and distributed under the **Apache License 2.0**.
 
@@ -24,9 +25,111 @@ Requirements
 JavaTuples requires **Java 17**.
 
 
-Tuples? What are tuples?
-------------------------
+Tuples
+------
 
 A tuple is just a sequence of objects that do not necessarily relate to each other in any way. For
-example: [23, "Saturn", java.sql.Connection@li734s] can be considered a tuple of three elements (a triple,
-or _trio_) containing an Integer, a String, and a JDBC Connection object. As simple as that.
+example, [23, "Saturn", java.sql.Connection@li734s] can be considered a tuple of three elements (a triple,
+or _trio_) containing an `Integer`, a `String`, and a JDBC `Connection` object. As simple as that.
+
+JavaTuples offers two types of tuples: **named** and **numbered**. Named tuples are simply a set of named
+fields, while numbered tuples are a set of fields, each with a number. All tuple implementations live in
+the `io.arxila.javatuples` package and all implement the `io.arxila.javatuples.Tuple` interface.
+
+Named tuples are:
+
+  * `Empty` (0 elements)
+  * `Solo<A>` (1 element)
+  * `Pair<A,B>` (2 elements)
+  * `Trio<A,B,C>` (3 elements)
+  * `Quartet<A,B,C,D>` (4 elements)
+  * `Quintet<A,B,C,D,E>` (5 elements)
+  * `Sextet<A,B,C,D,E,F>` (6 elements)
+  * `Septet<A,B,C,D,E,F,G>` (7 elements)
+  * `Octet<A,B,C,D,E,F,G,H>` (8 elements)
+  * `Nonet<A,B,C,D,E,F,G,H,I>` (9 elements)
+  * `Decet<A,B,C,D,E,F,G,H,I,J>` (10 elements)
+
+Numbered tuples are:
+
+  * `Tuple0` (0 elements)
+  * `Tuple1<A>` (1 element)
+  * `Tuple2<A,B>` (2 elements)
+  * `Tuple3<A,B,C>` (3 elements)
+  * `Tuple4<A,B,C,D>` (4 elements)
+  * `Tuple5<A,B,C,D,E>` (5 elements)
+  * `Tuple6<A,B,C,D,E,F>` (6 elements)
+  * `Tuple7<A,B,C,D,E,F,G>` (7 elements)
+  * `Tuple8<A,B,C,D,E,F,G,H>` (8 elements)
+  * `Tuple9<A,B,C,D,E,F,G,H,I>` (9 elements)
+  * `Tuple10<A,B,C,D,E,F,G,H,I,J>` (10 elements)
+
+Besides, JavaTuples also provides a small set of tuple-shaped utility classes:
+
+  * `KeyValue<K,V>`
+  * `LabelValue<L,V>`
+  * `MapEntry<K,V>` (implements `java.util.Map.Entry`)
+
+
+Usage
+-----
+
+### Creating Tuples
+
+Tuples are easy to create. By means of their constructors:
+```java
+// Named tuples
+var pair = new Pair<>("Hello", 42);              // pair : Pair<String, Integer>
+var trio = new Trio<>("A", "B", "C");            // trio : Trio<String, String, String>
+
+// Numbered tuples 
+var tuple2 = new Tuple2<>("Hello", 42);          // tuple2 : Tuple2<String, Integer>
+```
+Or by means of static `of(...)` factory methods:
+```java
+// Named tuples
+var pair = Pair.of("Hello", 42);                 // pair : Pair<String, Integer>
+var trio = Trio.of("A", "B", "C");               // trio : Trio<String, String, String>
+
+// Numbered tuples 
+var tuple2 = Tuple2.of("Hello", 42);             // tuple2 : Tuple2<String, Integer>
+```
+They can also be created from arrays or lists of the exact size, though in that case all elements of
+the tuple will be considered to be the same type (the component type of the array or list):
+```java
+var valuesList = List.of("Hello", 42);           // valuesList: List<Object> (effectively)
+var valuesArray = new String[] {"A", "B", "C"};  // valuesArray: String[]
+// ...
+var pair = Pair.of(valuesList);                  // pair : Pair<Object, Object>
+var trio = Trio.of(valuesArray);                 // trio : Trio<String, String, String>
+```
+
+### Accessing Values
+
+Values in tuples are always numbered from 0 to N-1, and can be accessed by means of the `valueN()` methods:
+
+```java
+// Direct access
+String value0 = pair.value0();
+Integer value1 = pair.value1();
+Long value9 = decet.value9();
+```
+Tuples are also iterable and provide a series of useful `contains*` methods:
+
+```java
+// Iteration
+for (final Object value : tuple) {
+    // ...do things
+}
+
+// Contains methods
+tuple.contains("Hello");            // true if the value is contained in the tuple
+tuple.containsAll("Hello",42);      // true if all values are contained in the tuple
+tuple.containsAny(41,42);           // true if any of the values are contained in the tuple
+```
+
+Also, an `equalsIgnoreOrder()` method is provided to compare tuples ignoring the order of their values:
+
+```java
+tuple.equalsIgnoreOrder(otherTuple); // true
+```
