@@ -1,6 +1,18 @@
 Change Log
 ==========
 
+2.0.1
+-----
+
+  * Added the JavaTuples class for version reporting.
+
+
+2.0.0
+-----
+
+  * Total rewrite of the library, moved into the "io.arxila" package.
+
+
 1.2
 ---
 
