@@ -2,26 +2,26 @@
 <assembly>
 
   <id>dist</id>
-  
+
   <formats>
     <format>zip</format>
   </formats>
-  
+
   <fileSets>
     <fileSet>
-      <directory>${basedir}/../javatuples/target/apidocs/</directory>
+      <directory>${basedir}/target/apidocs/</directory>
       <outputDirectory>/apidocs</outputDirectory>
       <includes>
         <include>**/*</include>
       </includes>
     </fileSet>
     <fileSet>
-      <directory>${basedir}/../javatuples/target/</directory>
+      <directory>${basedir}/target/</directory>
       <outputDirectory>/dist</outputDirectory>
       <includes>
-        <include>javatuples-${version}.jar</include>
-        <include>javatuples-${version}-javadoc.jar</include>
-        <include>javatuples-${version}-sources.jar</include>
+        <include>${project.artifactId}-${version}.jar</include>
+        <include>${project.artifactId}-${version}-javadoc.jar</include>
+        <include>${project.artifactId}-${version}-sources.jar</include>
       </includes>
     </fileSet>
     <fileSet>
@@ -34,15 +34,13 @@
       </includes>
     </fileSet>
   </fileSets>
-    
-    
+
   <dependencySets>
     <dependencySet>
       <outputDirectory>/lib</outputDirectory>
       <unpack>false</unpack>
       <scope>runtime</scope>
     </dependencySet>
-  </dependencySets> 
-  
-  
+  </dependencySets>
+
 </assembly>
