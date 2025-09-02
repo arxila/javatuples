@@ -25,6 +25,21 @@ Requirements
 JavaTuples requires **Java 17**.
 
 
+Maven Info
+----------
+
+Library dependency: `io.arxila.javatuples:javatuples:{version}`
+
+From Maven:
+```xml
+<dependency>
+  <groupId>io.arxila.javatuples</groupId>
+  <artifactId>javatuples</artifactId>
+  <version>{version}</version>
+</dependency>
+```
+
+
 Tuples
 ------
 
@@ -74,17 +89,6 @@ Additionally, JavaTuples provides a small set of tuple-shaped utility classes:
 
 Usage
 -----
-
-Library dependency: `io.arxila.javatuples:javatuples:{version}`
-
-From Maven:
-```xml
-<dependency>
-  <groupId>io.arxila.javatuples</groupId>
-  <artifactId>javatuples</artifactId>
-  <version>{version}</version>
-</dependency>
-```
 
 ### Creating Tuples
 
