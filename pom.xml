@@ -29,7 +29,7 @@
   <parent>
     <groupId>io.arxila</groupId>
     <artifactId>arxila-parent</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.4</version>
   </parent>
 
   <groupId>io.arxila.javatuples</groupId>
@@ -45,40 +45,6 @@
   </scm>
 
   <build>
-
-    <resources>
-
-      <resource>
-        <directory>src/main/resources</directory>
-        <excludes>
-          <exclude>io/arxila/javatuples/javatuples.properties</exclude>
-        </excludes>
-      </resource>
-
-      <resource>
-        <directory>src/main/resources</directory>
-        <includes>
-          <include>io/arxila/javatuples/javatuples.properties</include>
-        </includes>
-        <filtering>true</filtering>
-      </resource>
-
-      <resource>
-        <directory>..</directory>
-        <targetPath>META-INF</targetPath>
-        <includes>
-          <include>LICENSE.txt</include>
-          <include>NOTICE.txt</include>
-        </includes>
-      </resource>
-
-    </resources>
-
-    <testResources>
-      <testResource>
-        <directory>src/test/resources</directory>
-      </testResource>
-    </testResources>
 
     <plugins>
 
