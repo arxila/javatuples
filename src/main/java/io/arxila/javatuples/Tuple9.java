@@ -197,8 +197,8 @@ public record Tuple9<A,B,C,D,E,F,G,H,I>(
                            this.value5, this.value7, this.value8);
     }
 
-    public Octet<A,B,C,D,E,F,G,I> withoutValue7() {
-        return new Octet<>(this.value0, this.value1, this.value2, this.value3, this.value4,
+    public Tuple8<A,B,C,D,E,F,G,I> withoutValue7() {
+        return new Tuple8<>(this.value0, this.value1, this.value2, this.value3, this.value4,
                            this.value5, this.value6, this.value8);
     }
 
